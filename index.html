@@ -5,11 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>基于MVVM框架实现简易Vue</title>
+    <style>
+        .my-color {
+            background: rgb(51, 202, 192);
+            color: #fff;
+        }
+
+        .you {
+            background: #000;
+            color: #fff;
+        }
+
+        .have {
+            background: #abdead;
+            color: #fff;
+        }
+
+        .normal {
+            width: 100px;
+            height: 50px;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         {{title}}
         <input type="text" v-model="title" v-on:click="good">
+        <button v-bind:class="btn" class="normal">按钮</button>
     </div>
     <script src="./js/Observer.js"></script>
     <script src="./js/Dep.js"></script>
@@ -23,7 +45,8 @@
                 title: "Vue框架",
                 vue: {
                     name: 'Hello Vue'
-                }
+                },
+                btn: 'my-color'
             },
             methods: {
                 good() {

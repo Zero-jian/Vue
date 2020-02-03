@@ -24,7 +24,7 @@ class Watch {
         let val = this.value;
         if(newVal !== val) {
             this.value = newVal;
-            this.cb.call(this.vue, newVal);
+            this.cb.call(this.vue, newVal,val);
         }
     }
 }

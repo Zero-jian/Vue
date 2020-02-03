@@ -88,12 +88,26 @@ class Complie {
                     //清除v-model属性
                     node.removeAttribute(name);
                 } else if(status.indexOf('on') === 0) {
-                    //获取添加事件的方式
+                    //获取添加事件的方式 v-on:click
                     status = status.split(':');
                     //获取methods里面对应的方法
                     let fn = this.vue.options.methods && this.vue.options.methods[exp];
                     //在节点上添加事件
                     node.addEventListener(status[1], fn.bind(this.vue), false);
+                } else if(status.indexOf('bind') === 0) {
+                    //处理动态添加的类属性 v-bind
+                    let className = node.className;
+                    let value = this.getValue(this.vue, exp);
+                    let span = className && String(value) ? ' ' : '';
+                    node.className = className + span + value;
+                    //对DOM节点进行监听
+                    new Watch(this.vue, exp, (value, oldValue) => {
+                        let className = node.className;
+                        className = className.replace(oldValue, '').replace(' ','');
+                        let span = className && String(value) ? ' ' : '';
+                        node.className = className + span + value;
+                    })
+                    node.removeAttribute(name);
                 }
             }
         })
