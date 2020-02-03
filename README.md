@@ -1,3 +1,3 @@
 基于MVVM原理实现简易Vue框架
 
-使用Object.defineProperty实现Vue的双向绑定
+实现v-model绑定属性功能

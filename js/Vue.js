@@ -8,6 +8,7 @@ class Vue {
     }
 
     initData() {
+        //把options.data里面的数据绑定在Vue实例上
         Object.keys(this.data).forEach(key => {
             Object.defineProperty(this, key, {
                 get() {
