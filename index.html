@@ -58,6 +58,11 @@
                 world: function() {
                     return 'Hello ' + this.title;
                 }
+            },
+            watch: {
+                title() {
+                    console.log('值被改变了')
+                }
             }
         })
         window.vue = vue;

@@ -5,6 +5,7 @@ class Vue {
         this.initData();
         this.initComputed();
         new Observer(_data);
+        this.initWatch();
         new Complie(options.el, this);
     }
 
@@ -31,6 +32,13 @@ class Vue {
                 get: com[key],
                 set: () => {}
             })
+        })
+    }
+
+    initWatch() {
+        let watch = this.options.watch;
+        Object.keys(watch).forEach(key => {
+            new Watch(this, key, watch[key]);
         })
     }
 }
