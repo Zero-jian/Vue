@@ -32,6 +32,7 @@
         {{title}}
         <input type="text" v-model="title" v-on:click="good">
         <button v-bind:class="btn" class="normal">按钮</button>
+        {{world}}
     </div>
     <script src="./js/Observer.js"></script>
     <script src="./js/Dep.js"></script>
@@ -51,6 +52,11 @@
             methods: {
                 good() {
                     console.log("Hello")
+                }
+            },
+            computed: {
+                world: function() {
+                    return 'Hello ' + this.title;
                 }
             }
         })
