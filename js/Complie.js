@@ -47,10 +47,11 @@ class Complie {
         //node为匹配到的文本节点 
         //matchName为匹配到的title属性
         //对文本节点进行节点操作
-        node.textContent = this.getValue(this.vue, matchName);
+        let content = node.textContent;
+        node.textContent = content.replace(/\{\{(.*)\}\}/,this.getValue(this.vue, matchName));
         //对DOM节点进行监听
         new Watch(this.vue, matchName, text => {
-            node.textContent = text;
+            node.textContent = content.replace(/\{\{(.*)\}\}/,text);
         })
     }
 
