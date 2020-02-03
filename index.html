@@ -6,66 +6,61 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>基于MVVM框架实现简易Vue</title>
     <style>
-        .my-color {
-            background: rgb(51, 202, 192);
-            color: #fff;
+        .blue {
+            color: blue;
         }
-
-        .you {
-            background: #000;
-            color: #fff;
-        }
-
-        .have {
-            background: #abdead;
-            color: #fff;
-        }
-
-        .normal {
-            width: 100px;
-            height: 50px;
+        .red {
+            color: red;
         }
     </style>
 </head>
 <body>
     <div id="app">
-        {{title}}
-        <input type="text" v-model="title" v-on:click="good">
-        <button v-bind:class="btn" class="normal">按钮</button>
-        {{world}}
+        双向绑定演示：{{str}}<br>
+        v-model演示：<input type="text" v-model="dog.name"><br>
+        多层级属性演示：{{dog.name}}<br>
+        <p v-bind:class="className" class="abc">
+            动态class功能的演示
+        </p>
+        计算属性演示：{{getComputedValue}}<br>
+        点击事件演示： <button v-on:click="clickBtn">快来点我</button>
     </div>
     <script src="./js/Observer.js"></script>
     <script src="./js/Dep.js"></script>
     <script src="./js/Watch.js"></script>
     <script src="./js/Complie.js"></script>
     <script src="./js/Vue.js"></script>
-    <script>
+    <script type="text/javascript">
         let vue = new Vue({
             el: '#app',
             data: {
-                title: "Vue框架",
-                vue: {
-                    name: 'Hello Vue'
+                str: 'jackie',
+                dog: {
+                    name: 'titi'
                 },
-                btn: 'my-color'
-            },
-            methods: {
-                good() {
-                    console.log("Hello")
-                }
-            },
-            computed: {
-                world: function() {
-                    return 'Hello ' + this.title;
-                }
+                className: 'blue'
             },
             watch: {
-                title() {
-                    console.log('值被改变了')
+                str: function() {
+                    console.log('data.str被修改成了', this.str);
+                }
+            }, 
+            computed: {
+                getComputedValue: function() {
+                    return this.str + ' ' + 'hahaha';
+                }
+            },
+            methods: {
+                clickBtn: function(e) {
+                    alert("你被点击了");
                 }
             }
         })
         window.vue = vue;
+        setTimeout(function() {
+            this.vue.data.className = 'red';
+            this.vue.data.str = 'hello';
+        }, 3000);
     </script>
 </body>
 </html>

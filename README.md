@@ -1,3 +1,3 @@
 基于MVVM原理实现简易Vue框架
 
-实现Vue的watch功能
+完成Vue的基础功能开发
