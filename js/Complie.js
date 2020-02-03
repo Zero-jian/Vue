@@ -47,7 +47,7 @@ class Complie {
         //node为匹配到的文本节点 
         //matchName为匹配到的title属性
         //对文本节点进行节点操作
-        node.textContent = this.vue[matchName];
+        node.textContent = this.getValue(this.vue, matchName);
         //对DOM节点进行监听
         new Watch(this.vue, matchName, text => {
             node.textContent = text;
@@ -67,18 +67,48 @@ class Complie {
                 //获取v-model里面绑定的值
                 let exp = key.value;
                 //获取Vue实例上的值
-                let value = this.vue[exp];
+                let value = this.getValue(this.vue, exp);
                 //初始化输入框的值
                 node.value = value;
+                //对DOM节点进行监听
+                new Watch(this.vue, exp, value => {
+                    node.value = value;
+                })
                 //添加绑定事件
                 node.addEventListener('input', e => {
                     let newVal = e.target.value;
                     if(newVal === value) return;
                     //修改属性的值
-                    this.vue[exp] = newVal;
+                    this.setValue(this.vue, exp, newVal);
                 })
                 //清除v-model属性
                 node.removeAttribute(name);
+            }
+        })
+    }
+
+    getValue(vue, exp) {
+        //获取最新的值
+        let val = vue;
+        exp = exp.split('.');
+        exp.forEach(k => {
+            val = val[k];
+        });
+        return val;
+    }
+
+    setValue(vue, exp, value) {
+        //设置新的值
+        let val = vue;
+        exp = exp.split('.');
+        exp.forEach((i,k) => {
+            if(k < exp.length - 1) {
+                //判断是否最后一项值
+                //此分支为不是
+                val = val[i];
+            } else {
+                //最后一项值进行直接赋值
+                val[i] = value;
             }
         })
     }

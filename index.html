@@ -10,6 +10,8 @@
     <div id="app">
         {{title}}
         <input type="text" v-model="title">
+        <input type="text" v-model="vue.name">
+        {{vue.name}}
     </div>
     <script src="./js/Observer.js"></script>
     <script src="./js/Dep.js"></script>
@@ -20,7 +22,10 @@
         let vue = new Vue({
             el: '#app',
             data: {
-                title: "Vue框架"
+                title: "Vue框架",
+                vue: {
+                    name: 'Hello Vue'
+                }
             }
         })
         window.vue = vue;

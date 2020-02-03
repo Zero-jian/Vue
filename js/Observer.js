@@ -7,6 +7,12 @@ class Observer {
         Object.keys(data).forEach(key => {
             let value = data[key];
             let dep = new Dep();
+
+            if(typeof value === 'object') {
+                //遍历对象到最后一个属性
+                new Observer(value);
+            }
+
             Object.defineProperty(data, key, {
                 get() {
                     if(Watcher) {
