@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基于MVVM框架实现简易Vue</title>
+</head>
+<body>
+    <div id="app">
+        {{title}}
+    </div>
+    <script src="./js/Observer.js"></script>
+    <script src="./js/Dep.js"></script>
+    <script src="./js/Watch.js"></script>
+    <script src="./js/Complie.js"></script>
+    <script src="./js/Vue.js"></script>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                title: "Vue框架"
+            }
+        })
+        window.vue = vue;
+    </script>
+</body>
+</html>
