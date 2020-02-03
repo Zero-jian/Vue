@@ -9,9 +9,7 @@
 <body>
     <div id="app">
         {{title}}
-        <input type="text" v-model="title">
-        <input type="text" v-model="vue.name">
-        {{vue.name}}
+        <input type="text" v-model="title" v-on:click="good">
     </div>
     <script src="./js/Observer.js"></script>
     <script src="./js/Dep.js"></script>
@@ -25,6 +23,11 @@
                 title: "Vue框架",
                 vue: {
                     name: 'Hello Vue'
+                }
+            },
+            methods: {
+                good() {
+                    console.log("Hello")
                 }
             }
         })

@@ -68,21 +68,33 @@ class Complie {
                 let exp = key.value;
                 //获取Vue实例上的值
                 let value = this.getValue(this.vue, exp);
-                //初始化输入框的值
-                node.value = value;
-                //对DOM节点进行监听
-                new Watch(this.vue, exp, value => {
+                //判断里面的属性分类,区分v-model v-bind v-on
+                let status = name.substring(2);
+                //v-model
+                if(status.indexOf('model') === 0) {
+                    //初始化输入框的值
                     node.value = value;
-                })
-                //添加绑定事件
-                node.addEventListener('input', e => {
-                    let newVal = e.target.value;
-                    if(newVal === value) return;
-                    //修改属性的值
-                    this.setValue(this.vue, exp, newVal);
-                })
-                //清除v-model属性
-                node.removeAttribute(name);
+                    //对DOM节点进行监听
+                    new Watch(this.vue, exp, value => {
+                        node.value = value;
+                    })
+                    //添加绑定事件
+                    node.addEventListener('input', e => {
+                        let newVal = e.target.value;
+                        if(newVal === value) return;
+                        //修改属性的值
+                        this.setValue(this.vue, exp, newVal);
+                    })
+                    //清除v-model属性
+                    node.removeAttribute(name);
+                } else if(status.indexOf('on') === 0) {
+                    //获取添加事件的方式
+                    status = status.split(':');
+                    //获取methods里面对应的方法
+                    let fn = this.vue.options.methods && this.vue.options.methods[exp];
+                    //在节点上添加事件
+                    node.addEventListener(status[1], fn.bind(this.vue), false);
+                }
             }
         })
     }
